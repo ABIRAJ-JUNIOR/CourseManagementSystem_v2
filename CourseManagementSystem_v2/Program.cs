@@ -33,7 +33,7 @@ namespace CourseManagementSystem_v2
                         Console.Write("Enter Course ID: ");
                         string id = Console.ReadLine();
                         Console.Write("Enter Course Title: ");
-                        string title = Console.ReadLine();
+                        string title = _courseRepository.CapitalizeTitle(Console.ReadLine());
                         Console.Write("Enter Course Duration: ");
                         string duration = Console.ReadLine();
                         Console.Write("Enter Course price: ");
@@ -51,7 +51,7 @@ namespace CourseManagementSystem_v2
                         Console.Write("Enter Course ID: ");
                         string Courseid = Console.ReadLine();
                         Console.Write("Enter Course Title: ");
-                        string newtitle = Console.ReadLine();
+                        string newtitle = _courseRepository.CapitalizeTitle(Console.ReadLine());
                         Console.Write("Enter Course Duration: ");
                         string newduration = Console.ReadLine();
                         Console.Write("Enter Course price: ");
