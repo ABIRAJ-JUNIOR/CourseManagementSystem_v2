@@ -72,7 +72,33 @@ namespace CourseManagementSystem_v2
                     command.Parameters.AddWithValue("@courseId", id);
                     command.ExecuteNonQuery();
 
-                    Console.WriteLine($"\nCourse Update successfully.");
+                    Console.WriteLine($"\nCourse Deleted successfully.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"ERROR : {ex.Message}");
+            }
+        }
+
+        public void GetAllCourses()
+        {
+            try
+            {
+                using (var connection = new SqlConnection(_connectionString))
+                {
+                    connection.Open();
+                    var command = connection.CreateCommand();
+                    command.CommandText = @"SELECT * FROM Courses";
+                    using(var reader = command.ExecuteReader())
+                    {
+                        Console.WriteLine("--- List of Courses ---\n");
+                        while (reader.Read())
+                        {
+                            Console.WriteLine($"ID: {reader.GetString(0)}, Title: {reader.GetString(1)}, Duration: {reader.GetString(2)}, Price: {reader.GetDecimal(3)});
+                        }
+                    }
+
                 }
             }
             catch (Exception ex)
