@@ -49,9 +49,16 @@ namespace CourseManagementSystem_v2
                     command.Parameters.AddWithValue("@title", title);
                     command.Parameters.AddWithValue("@duration", duration);
                     command.Parameters.AddWithValue("@price", price);
-                    command.ExecuteNonQuery();
-
-                    Console.WriteLine($"\nCourse Update successfully.");
+                     var roweffected = command.ExecuteNonQuery();
+                    if(roweffected > 0)
+                    {
+                        Console.WriteLine($"\nCourse Update successfully.");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"\nCourse Not Found.");
+                    }
+                    
                 }
             }
             catch (Exception ex)
@@ -70,9 +77,15 @@ namespace CourseManagementSystem_v2
                     var command = connection.CreateCommand();
                     command.CommandText = @"DELETE FROM Courses WHERE CourseId=@courseId;";
                     command.Parameters.AddWithValue("@courseId", id);
-                    command.ExecuteNonQuery();
-
-                    Console.WriteLine($"\nCourse Deleted successfully.");
+                    var roweffected = command.ExecuteNonQuery();
+                    if (roweffected > 0)
+                    {
+                        Console.WriteLine($"\nCourse Deleted successfully.");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"\nCourse Not Found.");
+                    }
                 }
             }
             catch (Exception ex)
@@ -95,7 +108,7 @@ namespace CourseManagementSystem_v2
                         Console.WriteLine("--- List of Courses ---\n");
                         while (reader.Read())
                         {
-                            Console.WriteLine($"ID: {reader.GetString(0)}, Title: {reader.GetString(1)}, Duration: {reader.GetString(2)}, Price: {reader.GetDecimal(3)});
+                            Console.WriteLine($"ID: {reader.GetString(0)}, Title: {reader.GetString(1)}, Duration: {reader.GetString(2)}, Price: {reader.GetDecimal(3)}");
                         }
                     }
 
@@ -121,7 +134,7 @@ namespace CourseManagementSystem_v2
                     {
                         if(reader.Read())
                         {
-                            Console.WriteLine($"ID: {reader.GetString(0)}, Title: {reader.GetString(1)}, Duration: {reader.GetString(2)}, Price: {reader.GetDecimal(3)});
+                            Console.WriteLine($"ID: {reader.GetString(0)}, Title: {reader.GetString(1)}, Duration: {reader.GetString(2)}, Price: {reader.GetDecimal(3)}");
                         }
                         else
                         {
