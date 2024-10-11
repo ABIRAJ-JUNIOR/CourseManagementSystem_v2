@@ -59,5 +59,26 @@ namespace CourseManagementSystem_v2
                 Console.WriteLine($"ERROR : {ex.Message}");
             }
         }
+
+        public void Delete(string id)
+        {
+            try
+            {
+                using (var connection = new SqlConnection(_connectionString))
+                {
+                    connection.Open();
+                    var command = connection.CreateCommand();
+                    command.CommandText = @"DELETE FROM Courses WHERE CourseId=@courseId;";
+                    command.Parameters.AddWithValue("@courseId", id);
+                    command.ExecuteNonQuery();
+
+                    Console.WriteLine($"\nCourse Update successfully.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"ERROR : {ex.Message}");
+            }
+        }
     }
 }
