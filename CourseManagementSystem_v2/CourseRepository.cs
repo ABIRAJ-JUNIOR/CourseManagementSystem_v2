@@ -106,5 +106,35 @@ namespace CourseManagementSystem_v2
                 Console.WriteLine($"ERROR : {ex.Message}");
             }
         }
+
+        public void GetCourseById(string id)
+        {
+            try
+            {
+                using (var connection = new SqlConnection(_connectionString))
+                {
+                    connection.Open();
+                    var command = connection.CreateCommand();
+                    command.CommandText = @"SELECT * FROM Courses WHERE CourseId=@courseId;";
+                    command.Parameters.AddWithValue("@courseId", id);
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if(reader.Read())
+                        {
+                            Console.WriteLine($"ID: {reader.GetString(0)}, Title: {reader.GetString(1)}, Duration: {reader.GetString(2)}, Price: {reader.GetDecimal(3)});
+                        }
+                        else
+                        {
+                            Console.WriteLine($"\nCourse Not Found..");
+                        }
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"ERROR : {ex.Message}");
+            }
+        }
     }
 }
